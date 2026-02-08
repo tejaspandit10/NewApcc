@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     // 🔥 REQUIRED FOR GITHUB PAGES
-    base: 'NewApcc',
+    base: '/NewApcc/',
 
     server: {
       port: 3000,
