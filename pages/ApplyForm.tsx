@@ -52,35 +52,23 @@ export const ApplyForm: React.FC = () => {
     }));
   };
 
-  /* ✅ UPDATED SUBMIT HANDLER (NO DATABASE LOGIC) */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!agreedToTerms) {
-      alert(
-        'Please agree to the Terms & Conditions and No-Refund Policy before proceeding.'
-      );
+      alert("Please agree to Terms & Conditions.");
       return;
     }
 
-    // 🔒 Clear any old session data
-    localStorage.removeItem('payment_details');
-    localStorage.removeItem('pending_application');
-
-    // 🧠 Store application temporarily
-    localStorage.setItem(
-      'pending_application',
-      JSON.stringify(formData)
-    );
-
-    // 👉 Go to payment page
+    localStorage.setItem('pending_application', JSON.stringify(formData));
     navigate('/payment');
   };
 
   const inputClass =
-    'w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none bg-white text-black transition-all';
-  const labelClass = 'block text-sm font-semibold text-slate-700 mb-1';
-  const sectionTitleClass = 'text-xl font-bold text-[#003366] uppercase';
+    "w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none bg-white text-black";
+
+  const labelClass = "block text-sm font-semibold text-slate-700 mb-1";
+  const sectionTitleClass = "text-xl font-bold text-[#003366] uppercase";
 
   const sectors = [
     'Accounting',
@@ -94,6 +82,8 @@ export const ApplyForm: React.FC = () => {
   return (
     <div className="pt-24 max-w-5xl mx-auto px-4 py-12">
       <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+
+        {/* HEADER */}
         <div className="bg-[#003366] p-8 text-white text-center">
           <h1 className="text-3xl font-bold mb-2">
             Registration & Career Goal Questionnaire
@@ -102,17 +92,150 @@ export const ApplyForm: React.FC = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-8 space-y-12">
-          {/* ---- YOUR FORM CONTENT REMAINS UNCHANGED BELOW ---- */}
-          {/* (Personal Info, Education, Career, Declaration, Modals etc.) */}
-          {/* I have intentionally NOT modified any UI/inputs */}
-          
-          <div className="flex flex-col items-center gap-4 pt-8 border-t">
-            <p className="text-xs text-slate-500 font-medium">
-              Review all details carefully before proceeding.
-            </p>
+
+          {/* SECTION 1 */}
+          <section>
+            <h2 className={sectionTitleClass}>PERSONAL INFORMATION</h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+              <div>
+                <label className={labelClass}>First Name*</label>
+                <input required name="firstName" onChange={handleInputChange} className={inputClass}/>
+              </div>
+              <div>
+                <label className={labelClass}>Last Name*</label>
+                <input required name="lastName" onChange={handleInputChange} className={inputClass}/>
+              </div>
+              <div>
+                <label className={labelClass}>Mobile*</label>
+                <input required name="phone" onChange={handleInputChange} className={inputClass}/>
+              </div>
+              <div>
+                <label className={labelClass}>Email*</label>
+                <input required type="email" name="email" onChange={handleInputChange} className={inputClass}/>
+              </div>
+              <div>
+                <label className={labelClass}>Date of Birth*</label>
+                <input required type="date" name="dob" onChange={handleInputChange} className={inputClass}/>
+              </div>
+              <div>
+                <label className={labelClass}>Aadhaar*</label>
+                <input required name="aadhaar" className={inputClass} onChange={handleInputChange}/>
+              </div>
+
+              {/* AGENT CODE FIELD */}
+              <div className="md:col-span-3">
+                <label className={labelClass}>Agent Code (Optional)</label>
+                <input
+                  name="agentCode"
+                  placeholder="Enter agent code if referred"
+                  onChange={handleInputChange}
+                  className={inputClass}
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* SECTION 2 EDUCATION */}
+          <section>
+            <h2 className={sectionTitleClass}>EDUCATIONAL DETAILS</h2>
+
+            <div className="overflow-x-auto mt-6">
+              <table className="w-full text-sm border">
+                <thead className="bg-slate-50">
+                  <tr>
+                    <th className="p-2 border">Qualification</th>
+                    <th className="p-2 border">Year</th>
+                    <th className="p-2 border">% / CGPA</th>
+                    <th className="p-2 border">Stream</th>
+                    <th className="p-2 border">College</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {formData.education?.map((row, idx) => (
+                    <tr key={idx}>
+                      <td className="p-2 border bg-slate-50">{row.qualification}</td>
+                      <td className="p-2 border">
+                        <input
+                          className="w-full"
+                          value={row.passingYear}
+                          onChange={(e) =>
+                            handleEducationChange(idx, 'passingYear', e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="p-2 border">
+                        <input
+                          className="w-full"
+                          value={row.percentage}
+                          onChange={(e) =>
+                            handleEducationChange(idx, 'percentage', e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="p-2 border">
+                        <input
+                          className="w-full"
+                          value={row.stream}
+                          onChange={(e) =>
+                            handleEducationChange(idx, 'stream', e.target.value)
+                          }
+                        />
+                      </td>
+                      <td className="p-2 border">
+                        <input
+                          className="w-full"
+                          value={row.collegeName}
+                          onChange={(e) =>
+                            handleEducationChange(idx, 'collegeName', e.target.value)
+                          }
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* SECTION 3 CAREER */}
+          <section>
+            <h2 className={sectionTitleClass}>CAREER INFORMATION</h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <div>
+                <label className={labelClass}>Preferred Sector*</label>
+                {sectors.map(sector => (
+                  <div key={sector}>
+                    <input
+                      type="checkbox"
+                      onChange={() => handleSectorChange(sector)}
+                    /> {sector}
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <label className={labelClass}>Career Goal*</label>
+                <textarea required name="careerGoal" onChange={handleInputChange} className={inputClass}/>
+              </div>
+            </div>
+          </section>
+
+          {/* TERMS */}
+          <div className="mt-8">
+            <input
+              type="checkbox"
+              checked={agreedToTerms}
+              onChange={(e) => setAgreedToTerms(e.target.checked)}
+            /> I agree to Terms & Conditions
+          </div>
+
+          {/* SUBMIT */}
+          <div className="flex justify-center pt-8 border-t">
             <button
               type="submit"
-              className="bg-cyan-600 hover:bg-cyan-700 text-white px-16 py-5 rounded-xl font-black text-xl shadow-2xl transition-all transform hover:scale-105 active:scale-95"
+              className="bg-cyan-600 text-white px-10 py-4 rounded-xl text-lg font-bold"
             >
               PROCEED
             </button>
@@ -120,19 +243,11 @@ export const ApplyForm: React.FC = () => {
         </form>
       </div>
 
-      <LegalModal
-        isOpen={showTermsModal}
-        onClose={() => setShowTermsModal(false)}
-        title="Terms & Conditions"
-      >
+      <LegalModal isOpen={showTermsModal} onClose={() => setShowTermsModal(false)} title="Terms & Conditions">
         <TermsContent />
       </LegalModal>
 
-      <LegalModal
-        isOpen={showPrivacyModal}
-        onClose={() => setShowPrivacyModal(false)}
-        title="Privacy Policy"
-      >
+      <LegalModal isOpen={showPrivacyModal} onClose={() => setShowPrivacyModal(false)} title="Privacy Policy">
         <PrivacyContent />
       </LegalModal>
     </div>
