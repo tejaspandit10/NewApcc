@@ -20,7 +20,7 @@ export const Payment: React.FC = () => {
 
   // 🔐 PRODUCTION CONFIG (safe to expose)
   const BACKEND_URL = 'https://razorpay-backend-1-aeoq.onrender.com';
-  const RAZORPAY_KEY = 'rzp_live_SCmfJVKrLRgWdS';
+  const RAZORPAY_KEY = 'rzp_test_SEsp3tLXyzpq3x';
 
   /* 🔒 GUARD: user must come from Apply Form */
   useEffect(() => {
