@@ -63,7 +63,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   }
 
   try {
-    const res = await fetch(`${BACKEND_URL}/create-user`, {
+    const res = await fetch(`${BACKEND_URL}/api/users/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
