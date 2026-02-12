@@ -66,29 +66,28 @@ export const Payment: React.FC = () => {
           const verifyRes = await fetch(`${BACKEND_URL}/verify-payment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(response),
-          });
+            handler: async (response) => {
+  const verifyRes = await fetch(${BACKEND_URL}/verify-payment, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      razorpay_order_id: response.razorpay_order_id,
+      razorpay_payment_id: response.razorpay_payment_id,
+      razorpay_signature: response.razorpay_signature,
+      userId: userId,
+      amount: totalAmount,
+      gst: gstAmount,
+    }),
+  });
 
-          const result = await verifyRes.json();
+  const result = await verifyRes.json();
 
-          if (result.success) {
-            localStorage.setItem(
-              'payment_details',
-              JSON.stringify({
-                base: baseAmount,
-                gst: gstAmount,
-                total: totalAmount,
-                status: 'paid',
-                payment_id: response.razorpay_payment_id,
-                order_id: response.razorpay_order_id,
-              })
-            );
-
-            navigate('/confirmation');
-          } else {
-            alert('Payment verification failed ❌');
-          }
-        },
+  if (result.success) {
+    navigate("/confirmation");
+  } else {
+    alert("Payment verification failed ❌");
+  }
+},
 
         modal: {
           ondismiss: () => {
