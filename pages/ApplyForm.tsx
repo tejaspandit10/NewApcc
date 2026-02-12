@@ -52,17 +52,36 @@ export const ApplyForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const BACKEND_URL = "https://razorpay-backend-1-aeoq.onrender.com";
 
-    if (!agreedToTerms) {
-      alert("Please agree to Terms & Conditions.");
-      return;
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!agreedToTerms) {
+    alert("Please agree to Terms & Conditions.");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/create-user`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      localStorage.setItem("userId", data.user.id);
+      navigate("/payment");
+    } else {
+      alert("Failed to create user");
     }
-
-    localStorage.setItem('pending_application', JSON.stringify(formData));
-    navigate('/payment');
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  }
+};
 
   const inputClass =
     "w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none bg-white text-black";
