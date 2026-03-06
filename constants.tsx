@@ -107,5 +107,13 @@ export const PARTNERS = [
   { 
     name: 'SYLVANSCAPE', 
     logo: 'https://github.com/tejaspandit10/APCC/blob/main/sylvanscape%20pdf_page-0001.jpg?raw=true' 
+  },
+  {
+    name: 'AERF',
+    logo: 'https://raw.githubusercontent.com/tejaspandit10/APCC/aa5eb74677b940398e6f93630fe69f2db91dd370/AERF%20Logo.png'
+  },
+  {
+    name: 'DAIDEN',
+    logo: 'https://raw.githubusercontent.com/tejaspandit10/APCC/aa5eb74677b940398e6f93630fe69f2db91dd370/hor-logo%402x.png' 
   }
 ];

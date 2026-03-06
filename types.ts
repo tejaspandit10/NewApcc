@@ -47,13 +47,18 @@ export interface ApplicationFormData {
 
 // Added AgentFormData to fix the import error in pages/AgentRegister.tsx
 export interface AgentFormData {
-  fullName: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
   mobile: string;
   email: string;
-  aadhaar?: string;
   address: string;
+  city: string;
+  state: string;
+  pincode: string;
+  occupation: string;
+  aadhaarNumber?: string;
   registrationDate: string;
-  agentCode?: string;
 }
 
 export interface Testimonial {
