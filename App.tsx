@@ -13,7 +13,7 @@ import { PrivacyPage } from './pages/Privacy';
 import { Logo } from './components/Logo';
 import { BUSINESS_DETAILS } from './constants';
 import { AgentRegister } from './pages/AgentRegister';
-import { AdminLogin } from "./pages/AdminLogin";
+//import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { ProtectedAdminRoute } from "./components/ProtectedAdminRoute";
 
@@ -158,7 +158,7 @@ const App: React.FC = () => {
             <Route path="/payment" element={<Payment />} />
             <Route path="/confirmation" element={<Confirmation />} />
 	    <Route path="/agent-register" element={<AgentRegister />} />
-	    <Route path="/admin-login" element={<AdminLogin />} />
+	    
             <Route path="/admin" element={ <ProtectedAdminRoute> <AdminDashboard /> </ProtectedAdminRoute> } />
           </Routes>
         </main>
