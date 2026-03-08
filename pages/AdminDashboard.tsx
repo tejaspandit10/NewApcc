@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BACKEND_URL = "https://api.jobs-apcc.in/";
+const BACKEND_URL = "https://api.jobs-apcc.in";
 
 export const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();

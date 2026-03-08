@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-const BACKEND_URL = "https://api.jobs-apcc.in/";
+const BACKEND_URL = "https://api.jobs-apcc.in";
 const RAZORPAY_KEY = "rzp_test_SONfDBlT5RPZBy";
 
 const baseAmount = 300;

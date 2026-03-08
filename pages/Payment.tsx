@@ -16,7 +16,7 @@ export const Payment: React.FC = () => {
   const gstAmount = baseAmount * 0.18;
   const totalAmount = baseAmount + gstAmount;
 
-  const BACKEND_URL = "https://api.jobs-apcc.in/";
+  const BACKEND_URL = "https://api.jobs-apcc.in";
   const RAZORPAY_KEY = "rzp_test_SONfDBlT5RPZBy";
 
   useEffect(() => {

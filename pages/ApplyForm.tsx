@@ -143,7 +143,7 @@ export const ApplyForm: React.FC = () => {
       }));
     }
   };
-  const BACKEND_URL = "https://api.jobs-apcc.in/";
+  const BACKEND_URL = "https://api.jobs-apcc.in";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
