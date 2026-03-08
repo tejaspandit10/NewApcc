@@ -16,8 +16,8 @@ export const Payment: React.FC = () => {
   const gstAmount = baseAmount * 0.18;
   const totalAmount = baseAmount + gstAmount;
 
-  const BACKEND_URL = "https://razorpay-backend-1-aeoq.onrender.com";
-  const RAZORPAY_KEY = "rzp_live_SCmfJVKrLRgWdS";
+  const BACKEND_URL = "https://api.jobs-apcc.in/";
+  const RAZORPAY_KEY = "rzp_test_SONfDBlT5RPZBy";
 
   useEffect(() => {
     const app = localStorage.getItem("pending_application");
@@ -31,7 +31,7 @@ export const Payment: React.FC = () => {
       setLoading(true);
 
       const application = JSON.parse(
-        localStorage.getItem("pending_application") || "{}"
+        localStorage.getItem("pending_application") || "{}",
       );
 
       // ✅ MAP FIELDS CORRECTLY FOR BACKEND
@@ -53,8 +53,7 @@ export const Payment: React.FC = () => {
         englishProficiency: application.englishProficiency,
         expectedSalary: parseInt(application.expectedSalary || "0"),
         preferredLocation: application.preferredLocation,
-        hasPreviousExperience:
-          application.hasPreviousExperience === "yes",
+        hasPreviousExperience: application.hasPreviousExperience === "yes",
 
         resumeUrl: null,
         agentCode: application.agentCode || null,
@@ -102,41 +101,40 @@ export const Payment: React.FC = () => {
         description: "Candidate Registration Fee",
 
         handler: async (response: any) => {
-  const verifyRes = await fetch(`${BACKEND_URL}/verify-payment`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      razorpay_order_id: response.razorpay_order_id,
-      razorpay_payment_id: response.razorpay_payment_id,
-      razorpay_signature: response.razorpay_signature,
-      userId: userId,
-      amount: baseAmount,
-      gst: gstAmount,
-    }),
-  });
+          const verifyRes = await fetch(`${BACKEND_URL}/verify-payment`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              userId: userId,
+              amount: baseAmount,
+              gst: gstAmount,
+            }),
+          });
 
-  const result = await verifyRes.json();
+          const result = await verifyRes.json();
 
-  if (result.success) {
+          if (result.success) {
+            // ✅ SAVE PAYMENT DETAILS (REQUIRED BY CONFIRMATION PAGE)
+            localStorage.setItem(
+              "payment_details",
+              JSON.stringify({
+                base: baseAmount,
+                gst: gstAmount,
+                total: totalAmount,
+                status: "paid",
+                payment_id: response.razorpay_payment_id,
+                order_id: response.razorpay_order_id,
+              }),
+            );
 
-    // ✅ SAVE PAYMENT DETAILS (REQUIRED BY CONFIRMATION PAGE)
-    localStorage.setItem(
-      "payment_details",
-      JSON.stringify({
-        base: baseAmount,
-        gst: gstAmount,
-        total: totalAmount,
-        status: "paid",
-        payment_id: response.razorpay_payment_id,
-        order_id: response.razorpay_order_id,
-      })
-    );
-
-    navigate("/confirmation");
-  } else {
-    alert("Payment verification failed ❌");
-  }
-},
+            navigate("/confirmation");
+          } else {
+            alert("Payment verification failed ❌");
+          }
+        },
 
         modal: {
           ondismiss: () => {

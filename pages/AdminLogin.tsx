@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BACKEND_URL = "https://razorpay-backend-1-aeoq.onrender.com";
+const BACKEND_URL = "https://api.jobs-apcc.in/";
 
 export const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
@@ -39,7 +39,6 @@ export const AdminLogin: React.FC = () => {
 
       // Redirect to dashboard
       navigate("/admin");
-
     } catch (err) {
       console.error(err);
       setError("Server error. Try again.");
@@ -51,7 +50,6 @@ export const AdminLogin: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
       <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md border border-slate-200">
-
         <h1 className="text-3xl font-black text-[#003366] text-center mb-2 uppercase">
           Admin Login
         </h1>
@@ -66,7 +64,6 @@ export const AdminLogin: React.FC = () => {
         )}
 
         <form onSubmit={handleLogin} className="space-y-6">
-
           <div>
             <label className="block text-sm font-semibold mb-1 text-slate-700">
               Email
@@ -102,7 +99,6 @@ export const AdminLogin: React.FC = () => {
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-
         </form>
       </div>
     </div>
