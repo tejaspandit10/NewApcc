@@ -153,6 +153,7 @@ export const ApplyForm: React.FC = () => {
 
     if (Object.values(duplicateErrors).some(Boolean)) {
       alert("Please fix duplicate fields before submitting.");
+      setSubmitting(false);
       return;
     }
 
@@ -160,11 +161,13 @@ export const ApplyForm: React.FC = () => {
       alert(
         "Please agree to the Terms & Conditions and No-Refund Policy before proceeding.",
       );
+      setSubmitting(false);
       return;
     }
 
     if (!selfDeclaration) {
       alert("Please check the Self Declaration checkbox.");
+      setSubmitting(false);
       return;
     }
 
@@ -190,6 +193,7 @@ export const ApplyForm: React.FC = () => {
 
       if (!res.ok) {
         alert(data.error || "Server error");
+        setSubmitting(false);
         return;
       }
 

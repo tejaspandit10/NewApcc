@@ -30,7 +30,15 @@ export const Payment: React.FC = () => {
     try {
       setLoading(true);
 
-      const application = JSON.parse(
+      const userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        alert("Session expired. Please apply again.");
+        navigate("/apply");
+        return;
+      }
+
+      /* const application = JSON.parse(
         localStorage.getItem("pending_application") || "{}",
       );
 
@@ -66,15 +74,15 @@ export const Payment: React.FC = () => {
         body: JSON.stringify(userPayload),
       });
 
-      const userData = await userRes.json();
+      const userData = await userRes.json(); */
 
-      if (!userRes.ok) {
+      /* if (!userRes.ok) {
         alert(userData.error || "User creation failed");
         setLoading(false);
         return;
-      }
+      } */
 
-      const userId = userData.userId;
+      /* const userId = userData.userId; */
 
       // 2️⃣ CREATE ORDER
       const orderRes = await fetch(`${BACKEND_URL}/create-order`, {
