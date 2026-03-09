@@ -9,9 +9,9 @@ declare global {
 }
 
 const BACKEND_URL = "https://api.jobs-apcc.in";
-const RAZORPAY_KEY = "rzp_test_SONfDBlT5RPZBy";
+const RAZORPAY_KEY = "rzp_live_SCmfJVKrLRgWdS";
 
-const baseAmount = 300;
+const baseAmount = 1;
 const gstAmount = baseAmount * 0.18;
 const totalAmount = baseAmount + gstAmount;
 
