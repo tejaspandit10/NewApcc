@@ -12,7 +12,7 @@ export const Payment: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const baseAmount = 1;
+  const baseAmount = 200;
   const gstAmount = baseAmount * 0.18;
   const totalAmount = baseAmount + gstAmount;
 
