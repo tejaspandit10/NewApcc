@@ -4,6 +4,7 @@ import { ApplicationFormData, EducationRow } from "../types";
 import { LegalModal } from "../components/LegalModal";
 import { TermsContent } from "./Terms";
 import { PrivacyContent } from "./Privacy";
+import { Link } from "react-router-dom";
 
 export const ApplyForm: React.FC = () => {
   const navigate = useNavigate();
@@ -901,6 +902,18 @@ export const ApplyForm: React.FC = () => {
             >
               {submitting ? "Processing..." : "SUBMIT & CONTINUE"}
             </button>
+            <div className="text-center mt-6">
+              <p className="text-sm text-slate-500 mb-2">
+                Already registered but payment pending?
+              </p>
+
+              <Link
+                to="/resume-payment"
+                className="inline-block bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all"
+              >
+              Continue Payment
+              </Link>
+            </div>
           </div>
         </form>
       </div>

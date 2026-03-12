@@ -15,6 +15,7 @@ import { BUSINESS_DETAILS } from './constants';
 import { AgentRegister } from './pages/AgentRegister';
 import { AdminLogin } from "./pages/AdminLogin";
 import { ProtectedAdminRoute } from "./components/ProtectedAdminRoute";
+import { ResumePayment } from "./pages/ResumePayment";
 
 
 
@@ -157,9 +158,10 @@ const App: React.FC = () => {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/confirmation" element={<Confirmation />} />
-	    <Route path="/agent-register" element={<AgentRegister />} />
-	    <Route path="/admin-login" element={<AdminLogin />} />
+	          <Route path="/agent-register" element={<AgentRegister />} />
+	          <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/admin" element={ <ProtectedAdminRoute> <AdminDashboard /> </ProtectedAdminRoute> } />
+            <Route path="/resume-payment" element={<ResumePayment />} />
           </Routes>
         </main>
         <Footer />
